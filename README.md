@@ -72,26 +72,7 @@ pytest
 
 1. Убедитесь, что у вас установлен Docker.
 
-2. Создайте Dockerfile в корне проекта, если его нет:
-
-```dockerfile
-# Используем официальный образ Python
-FROM python:3.10-slim
-
-# Устанавливаем рабочую директорию
-WORKDIR /app
-
-# Копируем все файлы проекта
-COPY . /app
-
-# Устанавливаем зависимости
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Указываем команду для запуска сервера
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-3. Соберите Docker-образ:
+2. Соберите Docker-образ:
 
 ```bash
 docker build -t backend-fastapi .
