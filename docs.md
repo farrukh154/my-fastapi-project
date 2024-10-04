@@ -1,111 +1,134 @@
-
 ---
 
-# API Documentation
+# Документация API
 
-This document provides an overview of the API endpoints and their usage. For more detailed, interactive documentation, visit the Swagger UI.
+Этот документ описывает, как использовать API, предоставляемый данным FastAPI приложением.
 
-## Base URL
+## Содержание
 
-All endpoints are available at:
+- [Обзор](#обзор)
+- [Регистрация пользователя](#регистрация-пользователя)
+- [Логин](#логин)
+- [Создание поста](#создание-поста)
+- [Получение постов пользователя](#получение-постов-пользователя)
+- [Ссылка на Swagger UI](#ссылка-на-swagger-ui)
+
+## Обзор
+
+Данный API позволяет управлять пользователями и их постами. Вы можете зарегистрировать пользователя, войти под его учетной записью, создавать и получать посты, связанные с пользователем.
+
+## Регистрация пользователя
+
+**Endpoint**: `/register/`  
+**Метод**: POST  
+**Описание**: Регистрация нового пользователя.
+
+### Параметры:
+- `username` (строка): Имя пользователя, которое хотите зарегистрировать.
+- `password` (строка): Пароль пользователя.
+
+### Пример запроса:
+
+```json
+{
+    "username": "newuser",
+    "password": "password123"
+}
 ```
-http://localhost:8000
-```
 
-## Endpoints
+### Пример ответа:
 
-### 1. User Registration
-
-- **URL**: `/register/`
-- **Method**: `POST`
-- **Request Body**:
-  ```json
-  {
-    "username": "your_username",
-    "password": "your_password"
-  }
-  ```
-- **Response** (Success):
-  ```json
-  {
+```json
+{
     "id": 1,
-    "username": "your_username"
-  }
-  ```
-- **Error Response** (Username already exists):
-  ```json
-  {
-    "detail": "Username already registered"
-  }
-  ```
+    "username": "newuser"
+}
+```
 
-### 2. User Login
+## Логин
 
-- **URL**: `/login/`
-- **Method**: `POST`
-- **Request Body**:
-  ```json
-  {
-    "username": "your_username",
-    "password": "your_password"
-  }
-  ```
-- **Response** (Success):
-  ```json
-  {
+**Endpoint**: `/login/`  
+**Метод**: POST  
+**Описание**: Логин пользователя. Проверяет правильность имени пользователя и пароля.
+
+### Параметры:
+- `username` (строка): Имя пользователя.
+- `password` (строка): Пароль.
+
+### Пример запроса:
+
+```json
+{
+    "username": "newuser",
+    "password": "password123"
+}
+```
+
+### Пример ответа:
+
+```json
+{
     "message": "Login successful"
-  }
-  ```
-- **Error Response** (Invalid credentials):
-  ```json
-  {
-    "detail": "Invalid credentials"
-  }
-  ```
+}
+```
 
-### 3. Create Post
+## Создание поста
 
-- **URL**: `/posts/`
-- **Method**: `POST`
-- **Request Parameters**:
-  - `user_id` (int): The ID of the user creating the post.
-- **Request Body**:
-  ```json
-  {
-    "title": "Post title",
-    "content": "Post content"
-  }
-  ```
-- **Response**:
-  ```json
-  {
+**Endpoint**: `/posts/`  
+**Метод**: POST  
+**Описание**: Создание нового поста для пользователя.
+
+### Параметры:
+- `title` (строка): Заголовок поста.
+- `content` (строка): Содержание поста.
+- `user_id` (целое число): ID пользователя, который создает пост.
+
+### Пример запроса:
+
+```json
+{
+    "title": "Мой первый пост",
+    "content": "Это содержимое моего первого поста."
+}
+```
+
+### Пример ответа:
+
+```json
+{
     "id": 1,
-    "title": "Post title",
-    "content": "Post content",
+    "title": "Мой первый пост",
+    "content": "Это содержимое моего первого поста.",
     "user_id": 1
-  }
-  ```
+}
+```
 
-### 4. Get User Posts
+## Получение постов пользователя
 
-- **URL**: `/users/{user_id}/posts`
-- **Method**: `GET`
-- **Response** (Success):
-  ```json
-  [
+**Endpoint**: `/users/{user_id}/posts`  
+**Метод**: GET  
+**Описание**: Получение всех постов, созданных пользователем с указанным `user_id`.
+
+### Параметры:
+- `user_id` (целое число): ID пользователя.
+
+### Пример ответа:
+
+```json
+[
     {
-      "id": 1,
-      "title": "Post title",
-      "content": "Post content"
+        "id": 1,
+        "title": "Мой первый пост",
+        "content": "Это содержимое моего первого поста.",
+        "user_id": 1
     }
-  ]
-  ```
+]
+```
 
-## Swagger UI
+## Ссылка на Swagger UI
 
-For an interactive view of the API, test requests, and auto-generated documentation, visit:
-
-(http://localhost:8000/docs)
+Для получения полной документации API перейдите по [ссылке на Swagger UI](http://localhost:8000/docs). В Swagger UI вы сможете протестировать все доступные эндпоинты API.
 
 ---
 
+Этот перевод должен корректно отобразиться в файле `docs.md` и будет удобен для разработчиков, использующих ваше API.
